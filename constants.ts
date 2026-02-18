@@ -68,6 +68,74 @@ export const CATEGORIES: Category[] = [
       { term: 'Restaurante', hint: 'Lugar donde te sirven comida' },
       { term: 'Supermercado', hint: 'Lugar para comprar víveres' }
     ]
+  },
+  {
+    id: 'deportes',
+    name: 'Deportes',
+    icon: '⚽',
+    words: [
+      { term: 'Fútbol', hint: 'Deporte con balón y dos arcos' },
+      { term: 'Baloncesto', hint: 'Deporte de encestar un balón' },
+      { term: 'Tenis', hint: 'Deporte con raqueta y pelota amarilla' },
+      { term: 'Natación', hint: 'Deporte en el agua' },
+      { term: 'Ciclismo', hint: 'Deporte sobre ruedas' },
+      { term: 'Voleibol', hint: 'Deporte de red y balón' },
+      { term: 'Golf', hint: 'Deporte de meter bola en hoyo' },
+      { term: 'Boxeo', hint: 'Deporte de combate con guantes' },
+      { term: 'Atletismo', hint: 'Correr, saltar y lanzar' },
+      { term: 'Béisbol', hint: 'Deporte con bate y pelota pequeña' }
+    ]
+  },
+  {
+    id: 'profesiones',
+    name: 'Profesiones',
+    icon: '👨‍⚕️',
+    words: [
+      { term: 'Médico', hint: 'Cura a los enfermos' },
+      { term: 'Profesor', hint: 'Enseña a los alumnos' },
+      { term: 'Policía', hint: 'Protege a los ciudadanos' },
+      { term: 'Bombero', hint: 'Apaga incendios' },
+      { term: 'Cocinero', hint: 'Prepara comida' },
+      { term: 'Arquitecto', hint: 'Diseña edificios' },
+      { term: 'Mecánico', hint: 'Repara coches' },
+      { term: 'Periodista', hint: 'Informa noticias' },
+      { term: 'Abogado', hint: 'Defiende en juicios' },
+      { term: 'Astronauta', hint: 'Viaja al espacio' }
+    ]
+  },
+  {
+    id: 'instrumentos',
+    name: 'Instrumentos',
+    icon: '🎸',
+    words: [
+      { term: 'Guitarra', hint: 'Cuerdas y caja de madera' },
+      { term: 'Piano', hint: 'Teclas blancas y negras' },
+      { term: 'Violín', hint: 'Se toca con un arco' },
+      { term: 'Batería', hint: 'Tambores y platillos' },
+      { term: 'Trompeta', hint: 'Instrumento de viento metal' },
+      { term: 'Flauta', hint: 'Instrumento de viento madera' },
+      { term: 'Saxofón', hint: 'Usado en jazz' },
+      { term: 'Arpa', hint: 'Muchas cuerdas verticales' },
+      { term: 'Acordeón', hint: 'Instrumento de fuelle' },
+      { term: 'Maracas', hint: 'Instrumento de percusión latino' }
+    ]
+  },
+  {
+    id: 'vehiculos',
+    name: 'Vehículos',
+    icon: '🚗',
+    words: [
+      { term: 'Coche', hint: 'Tiene cuatro ruedas y motor' },
+      { term: 'Avión', hint: 'Vuela por el cielo' },
+      { term: 'Barco', hint: 'Navega por el agua' },
+      { term: 'Bicicleta', hint: 'Dos ruedas y pedales' },
+      { term: 'Tren', hint: 'Va sobre vías' },
+      { term: 'Motocicleta', hint: 'Dos ruedas y motor' },
+      { term: 'Helicóptero', hint: 'Vuela con hélice superior' },
+      { term: 'Submarino', hint: 'Navega bajo el agua' },
+      { term: 'Camión', hint: 'Transporta carga pesada' },
+      { term: 'Autobús', hint: 'Transporta muchos pasajeros' }
+    ]
   }
 ];
 
