@@ -7,7 +7,7 @@ export enum GamePhase {
 
 export interface WordDef {
   term: string;
-  hint: string;
+  hints: string[]; // Changed from single hint to array of single-word hints
 }
 
 export interface Category {
@@ -28,6 +28,7 @@ export interface GameState {
   imposterCount: number; // Setting for how many impostors
   selectedCategories: string[];
   secretWord: WordDef | null;
+  imposterHints: Record<number, string>; // Map player index to their specific hint
   roundDuration: number; // in seconds
   showHint: boolean; // Setting to toggle hints for impostor
   winner: 'CITIZENS' | 'IMPOSTOR' | null;

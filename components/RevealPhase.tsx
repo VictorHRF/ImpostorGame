@@ -3,12 +3,12 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Eye, EyeOff } from 'lucide-react';
 import { Button } from './ui/Button';
 import { Card } from './ui/Card';
-import { WordDef } from '../types';
 
 interface RevealPhaseProps {
   currentPlayerName: string;
   isImposter: boolean;
-  secretWord: WordDef | null;
+  secretWordTerm: string;
+  imposterHint: string;
   categoryName: string;
   showHint: boolean;
   onNext: () => void;
@@ -17,7 +17,8 @@ interface RevealPhaseProps {
 export const RevealPhase: React.FC<RevealPhaseProps> = ({
   currentPlayerName,
   isImposter,
-  secretWord,
+  secretWordTerm,
+  imposterHint,
   categoryName,
   showHint,
   onNext
@@ -95,7 +96,7 @@ export const RevealPhase: React.FC<RevealPhaseProps> = ({
                       {showHint && (
                         <div className="pt-2 border-t border-red-500/20">
                           <div className="text-xs text-red-400 uppercase tracking-widest mb-1">Tu Pista</div>
-                          <p className="text-lg font-bold text-white italic">"{secretWord?.hint}"</p>
+                          <p className="text-lg font-bold text-white italic">"{imposterHint}"</p>
                         </div>
                       )}
                     </div>
@@ -108,7 +109,7 @@ export const RevealPhase: React.FC<RevealPhaseProps> = ({
                     <h2 className="text-2xl font-bold text-emerald-400">La palabra es:</h2>
                     <div className="bg-emerald-500/10 border-2 border-emerald-500/30 rounded-xl py-4 px-6">
                       <span className="text-4xl font-black text-white tracking-wide">
-                        {secretWord?.term}
+                        {secretWordTerm}
                       </span>
                     </div>
                     <p className="text-emerald-200/80 text-sm">

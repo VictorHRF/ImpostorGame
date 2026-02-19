@@ -21,6 +21,7 @@ const App: React.FC = () => {
     imposterCount: 1,
     selectedCategories: [],
     secretWord: null,
+    imposterHints: {},
     roundDuration: 300,
     showHint: true,
     winner: null,
@@ -51,6 +52,21 @@ const App: React.FC = () => {
     return Array.from(indices);
   };
 
+  const assignHintsToImpostors = (imposterIndices: number[], hints: string[]): Record<number, string> => {
+    const assignedHints: Record<number, string> = {};
+    if (!hints || hints.length === 0) return assignedHints;
+
+    // Shuffle hints so the assignment is random
+    const shuffledHints = [...hints].sort(() => Math.random() - 0.5);
+
+    imposterIndices.forEach((playerIdx, i) => {
+      // Assign a hint using modulo to loop if we have more impostors than unique hints
+      assignedHints[playerIdx] = shuffledHints[i % shuffledHints.length];
+    });
+
+    return assignedHints;
+  };
+
   const startGame = () => {
     if (gameState.selectedCategories.length === 0 || gameState.players.length < 3) return;
 
@@ -62,12 +78,14 @@ const App: React.FC = () => {
     const randomWord = allWords[Math.floor(Math.random() * allWords.length)];
     const safeImposterCount = Math.min(gameState.imposterCount, Math.floor((gameState.players.length - 1) / 2)) || 1;
     const newImposterIndices = generateImpostors(gameState.players.length, safeImposterCount);
+    const newImposterHints = assignHintsToImpostors(newImposterIndices, randomWord.hints);
 
     setGameState(prev => ({
       ...prev,
       phase: GamePhase.REVEAL,
       secretWord: randomWord,
       imposterIndices: newImposterIndices,
+      imposterHints: newImposterHints,
       caughtImposterIndices: [],
       eliminatedIndices: [],
       currentPlayerIndex: 0,
@@ -97,16 +115,18 @@ const App: React.FC = () => {
     const allWords = relevantCategories.flatMap(c => c.words);
     const randomWord = allWords.length > 0 
       ? allWords[Math.floor(Math.random() * allWords.length)]
-      : { term: 'Error', hint: 'No words found' };
+      : { term: 'Error', hints: ['Error'] };
     
     const safeImposterCount = Math.min(gameState.imposterCount, Math.floor((gameState.players.length - 1) / 2)) || 1;
     const newImposterIndices = generateImpostors(gameState.players.length, safeImposterCount);
+    const newImposterHints = assignHintsToImpostors(newImposterIndices, randomWord.hints);
 
     setGameState(prev => ({
       ...prev,
       phase: GamePhase.REVEAL,
       secretWord: randomWord,
       imposterIndices: newImposterIndices,
+      imposterHints: newImposterHints,
       caughtImposterIndices: [],
       eliminatedIndices: [],
       currentPlayerIndex: 0,
@@ -121,6 +141,7 @@ const App: React.FC = () => {
       phase: GamePhase.SETUP,
       currentPlayerIndex: 0,
       imposterIndices: [],
+      imposterHints: {},
       caughtImposterIndices: [],
       eliminatedIndices: [],
       secretWord: null,
@@ -176,8 +197,6 @@ const App: React.FC = () => {
       }));
       
       // Calculate active players (total - eliminated - caught)
-      // If only impostors remain + 1 citizen? Logic usually ends there too, but prompt says "continue if innocent unleashed"
-      // We will strictly follow "continue" unless everyone is dead, but practically we just return notification.
       return { 
         status: 'CONTINUE', 
         message: `¡Fallo! ${gameState.players[playerIndex]} es Inocente y ha sido eliminado.`, 
@@ -239,7 +258,8 @@ const App: React.FC = () => {
               <RevealPhase
                 currentPlayerName={gameState.players[gameState.currentPlayerIndex]}
                 isImposter={gameState.imposterIndices.includes(gameState.currentPlayerIndex)}
-                secretWord={gameState.secretWord}
+                secretWordTerm={gameState.secretWord?.term || ''}
+                imposterHint={gameState.imposterHints[gameState.currentPlayerIndex] || ''}
                 categoryName={getActiveCategoryName()}
                 showHint={gameState.showHint}
                 onNext={nextReveal}
