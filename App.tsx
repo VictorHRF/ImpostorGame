@@ -192,9 +192,31 @@ const App: React.FC = () => {
     
     // 2. Innocent
     else {
+      const newEliminatedIndices = [...gameState.eliminatedIndices, playerIndex];
+      const totalImpostors = gameState.imposterIndices.length;
+      const activeImpostors = totalImpostors - gameState.caughtImposterIndices.length;
+      const totalCitizens = gameState.players.length - totalImpostors;
+      const eliminatedCitizens = newEliminatedIndices.length;
+      const activeCitizens = totalCitizens - eliminatedCitizens;
+
+      if (activeImpostors >= activeCitizens) {
+        setGameState(prev => ({
+          ...prev,
+          phase: GamePhase.GAME_OVER,
+          winner: 'IMPOSTOR',
+          winReason: 'IMPOSTOR_MAJORITY',
+          eliminatedIndices: newEliminatedIndices
+        }));
+        return {
+          status: 'GAME_OVER',
+          message: `¡Fallo! ${gameState.players[playerIndex]} es Inocente. Los impostores dominan.`,
+          type: 'error'
+        };
+      }
+
       setGameState(prev => ({
         ...prev,
-        eliminatedIndices: [...prev.eliminatedIndices, playerIndex]
+        eliminatedIndices: newEliminatedIndices
       }));
       
       // Calculate active players (total - eliminated - caught)
@@ -317,7 +339,9 @@ const App: React.FC = () => {
                      ? 'El tiempo se agotó y los impostores sobrevivieron.' 
                      : gameState.winReason === 'ALL_CAUGHT' 
                        ? 'Todos los impostores fueron eliminados.' 
-                       : 'Juego terminado.'}
+                       : gameState.winReason === 'IMPOSTOR_MAJORITY'
+                         ? 'Igualdad de jugadores: ¡Los Impostores dominan!'
+                         : 'Juego terminado.'}
                  </p>
                  
                  <div className="bg-gray-900/50 rounded-xl p-6 mb-8 text-left space-y-4">
