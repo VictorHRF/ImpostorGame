@@ -33,5 +33,5 @@ export interface GameState {
   showHint: boolean; // Setting to toggle hints for impostor
   showCategory: boolean; // Setting to toggle category display in reveal phase
   winner: 'CITIZENS' | 'IMPOSTOR' | null;
-  winReason?: 'TIME_UP' | 'ALL_CAUGHT' | null; // Why did the game end
+  winReason?: 'TIME_UP' | 'ALL_CAUGHT' | 'IMPOSTOR_MAJORITY' | null; // Why did the game end
 }
