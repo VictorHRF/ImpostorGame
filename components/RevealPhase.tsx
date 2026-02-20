@@ -11,6 +11,7 @@ interface RevealPhaseProps {
   imposterHint: string;
   categoryName: string;
   showHint: boolean;
+  showCategory: boolean;
   onNext: () => void;
 }
 
@@ -21,6 +22,7 @@ export const RevealPhase: React.FC<RevealPhaseProps> = ({
   imposterHint,
   categoryName,
   showHint,
+  showCategory,
   onNext
 }) => {
   const [isRevealed, setIsRevealed] = useState(false);
@@ -87,19 +89,23 @@ export const RevealPhase: React.FC<RevealPhaseProps> = ({
                       No sabes la palabra exacta.
                     </p>
                     
-                    <div className="bg-red-500/10 border border-red-500/30 rounded-xl p-4 mt-4 space-y-3">
-                      <div>
-                        <div className="text-xs text-red-400 uppercase tracking-widest mb-1">Categoría</div>
-                        <p className="font-bold text-white">{categoryName}</p>
+                    {(showCategory || showHint) && (
+                      <div className="bg-red-500/10 border border-red-500/30 rounded-xl p-4 mt-4 space-y-3">
+                        {showCategory && (
+                          <div>
+                            <div className="text-xs text-red-400 uppercase tracking-widest mb-1">Categoría</div>
+                            <p className="font-bold text-white">{categoryName}</p>
+                          </div>
+                        )}
+
+                        {showHint && (
+                          <div className={showCategory ? "pt-2 border-t border-red-500/20" : ""}>
+                            <div className="text-xs text-red-400 uppercase tracking-widest mb-1">Tu Pista</div>
+                            <p className="text-lg font-bold text-white italic">"{imposterHint}"</p>
+                          </div>
+                        )}
                       </div>
-                      
-                      {showHint && (
-                        <div className="pt-2 border-t border-red-500/20">
-                          <div className="text-xs text-red-400 uppercase tracking-widest mb-1">Tu Pista</div>
-                          <p className="text-lg font-bold text-white italic">"{imposterHint}"</p>
-                        </div>
-                      )}
-                    </div>
+                    )}
                   </div>
                 ) : (
                   <div className="space-y-4">
