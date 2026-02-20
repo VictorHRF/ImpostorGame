@@ -24,6 +24,7 @@ const App: React.FC = () => {
     imposterHints: {},
     roundDuration: 300,
     showHint: true,
+    showCategory: true,
     winner: null,
     winReason: null
   });
@@ -241,6 +242,8 @@ const App: React.FC = () => {
                 setImposterCount={(val) => setGameState(prev => ({...prev, imposterCount: val}))}
                 showHint={gameState.showHint}
                 setShowHint={(val) => setGameState(prev => ({...prev, showHint: val}))}
+                showCategory={gameState.showCategory}
+                setShowCategory={(val) => setGameState(prev => ({...prev, showCategory: val}))}
 
                 onStart={startGame}
               />
@@ -262,6 +265,7 @@ const App: React.FC = () => {
                 imposterHint={gameState.imposterHints[gameState.currentPlayerIndex] || ''}
                 categoryName={getActiveCategoryName()}
                 showHint={gameState.showHint}
+                showCategory={gameState.showCategory}
                 onNext={nextReveal}
               />
             </motion.div>

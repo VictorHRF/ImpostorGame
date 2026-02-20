@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { UserPlus, X, Play, Users, LayoutGrid, Check, Settings, Clock, HelpCircle, AlertCircle } from 'lucide-react';
+import { UserPlus, X, Play, Users, LayoutGrid, Check, Settings, Clock, HelpCircle, AlertCircle, Tag } from 'lucide-react';
 import { CATEGORIES, MIN_PLAYERS } from '../constants';
 import { Button } from './ui/Button';
 import { Card } from './ui/Card';
@@ -18,6 +18,8 @@ interface WelcomeScreenProps {
   setImposterCount: (count: number) => void;
   showHint: boolean;
   setShowHint: (show: boolean) => void;
+  showCategory: boolean;
+  setShowCategory: (show: boolean) => void;
   
   onStart: () => void;
 }
@@ -33,6 +35,8 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({
   setImposterCount,
   showHint,
   setShowHint,
+  showCategory,
+  setShowCategory,
   onStart
 }) => {
   const [newName, setNewName] = useState('');
@@ -149,6 +153,20 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({
                     className={`w-12 h-6 rounded-full p-1 transition-colors ${showHint ? 'bg-indigo-500' : 'bg-gray-700'}`}
                   >
                     <div className={`w-4 h-4 rounded-full bg-white shadow-sm transition-transform ${showHint ? 'translate-x-6' : 'translate-x-0'}`} />
+                  </button>
+                </div>
+
+                {/* Show Category Toggle */}
+                <div className="flex justify-between items-center">
+                  <div className="flex flex-col">
+                    <span className="text-gray-300 text-sm flex items-center gap-2"><Tag size={14}/> Mostrar Categoría</span>
+                    <span className="text-xs text-gray-500">¿El impostor ve la categoría?</span>
+                  </div>
+                  <button
+                    onClick={() => setShowCategory(!showCategory)}
+                    className={`w-12 h-6 rounded-full p-1 transition-colors ${showCategory ? 'bg-indigo-500' : 'bg-gray-700'}`}
+                  >
+                    <div className={`w-4 h-4 rounded-full bg-white shadow-sm transition-transform ${showCategory ? 'translate-x-6' : 'translate-x-0'}`} />
                   </button>
                 </div>
               </div>

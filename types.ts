@@ -31,6 +31,7 @@ export interface GameState {
   imposterHints: Record<number, string>; // Map player index to their specific hint
   roundDuration: number; // in seconds
   showHint: boolean; // Setting to toggle hints for impostor
+  showCategory: boolean; // Setting to toggle category display in reveal phase
   winner: 'CITIZENS' | 'IMPOSTOR' | null;
   winReason?: 'TIME_UP' | 'ALL_CAUGHT' | null; // Why did the game end
 }
